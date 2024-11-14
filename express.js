@@ -21,9 +21,10 @@ app.use(express.json());
 app.get('/orders/:id', async (req, res) => {
   try {
     const fullUrl = req.originalUrl; // Get the full URL
+    console.log("Recieved getOrderRequest for Id: "+req.params.id)
     const response = await fetch('https://62b22f4d20cad3685c8ac617.mockapi.io/inventory/v1/' + fullUrl);
     const data = await response.json();
-
+    console.log("Parsing the getOrderResponse: "+JSON.stringify(data)+"for Id: "+req.params.id+" ")
     // Send the fetched data as the response
     res.json(data);
   } catch (error) {
@@ -35,9 +36,10 @@ app.get('/orders/:id', async (req, res) => {
 app.get('/products/:id', async (req, res) => {
     try {
         const fullUrl = req.originalUrl; // Get the full URL
+        console.log("Recieved getProductRequest for Id: "+req.params.id)
         const response = await fetch('https://62b22f4d20cad3685c8ac617.mockapi.io/inventory/v1/' + fullUrl);
         const data = await response.json();
-    
+        console.log("Parsing the getProductResponse: "+JSON.stringify(data)+"for Id: "+req.params.id+" ")
         // Send the fetched data as the response
         res.json(data);
       } catch (error) {
@@ -58,14 +60,13 @@ app.post('/orders', async (req, res) => {
 
   try {
     const fullUrl = req.originalUrl; // Get the full URL
+    console.log("Recieved createOrderRequest with follwoing details: "+JSON.stringify(req.body))
     // Forward the request to the external API
     const response = await fetch('https://62b22f4d20cad3685c8ac617.mockapi.io/inventory/v1/' + fullUrl, headers);
 
     // Parse the response from the external API
     const responseData = await response.json();
-
-    console.log(responseData)
-
+    console.log("Created Order with following details: "+JSON.stringify(responseData))
     // Send the external API's response back to the original client
     res.json(responseData);
   } catch (error) {
@@ -87,13 +88,12 @@ app.post('/products', async (req, res) => {
 
   try {
     const fullUrl = req.originalUrl; // Get the full URL
+    console.log("Recieved createProductRequest with follwoing details: "+JSON.stringify(req.body))
     // Forward the request to the external API
     const response = await fetch('https://62b22f4d20cad3685c8ac617.mockapi.io/inventory/v1/' + fullUrl, headers);
-
     // Parse the response from the external API
     const responseData = await response.json();
-
-    console.log(responseData)
+    console.log("Created Order with following details: "+JSON.stringify(responseData))
 
     // Send the external API's response back to the original client
     res.json(responseData);
