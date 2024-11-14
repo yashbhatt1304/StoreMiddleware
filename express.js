@@ -1,5 +1,11 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+const corsOptions = {
+    //origin: 'http://localhost:3000', // Only allow requests from this origin
+}
+
+app.use(cors(corsOptions));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
