@@ -3,6 +3,13 @@ const app = express();
 const cors = require('cors');
 const corsOptions = {
     //origin: 'http://localhost:3000', // Only allow requests from this origin
+    origin: (origin, callback) => {
+        if (origin && origin.includes(':3000')) {
+          callback(null, true); // Allow requests from any IP with port 3000
+        } else {
+          callback(new Error('Not allowed by CORS')); // Block all other origins
+        }
+      }
 }
 
 app.use(cors(corsOptions));
