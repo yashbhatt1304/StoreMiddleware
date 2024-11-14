@@ -32,6 +32,35 @@ app.get('/products/:id', async (req, res) => {
       }
 });
 
+// POST route for Orders
+app.post('/orders', async (req, res) => {
+  const data = req.body;
+  const headers = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  }
+
+  try {
+    const fullUrl = req.originalUrl; // Get the full URL
+    // Forward the request to the external API
+    const response = await fetch('https://62b22f4d20cad3685c8ac617.mockapi.io/inventory/v1/' + fullUrl, headers);
+
+    // Parse the response from the external API
+    const responseData = await response.json();
+
+    console.log(responseData)
+
+    // Send the external API's response back to the original client
+    res.json(responseData);
+  } catch (error) {
+    console.error('Error forwarding data:', error);
+    res.status(500).json({ error: 'Error forwarding data to external API' });
+  }
+});
+
 // Start the server on port 3000
 const PORT = 3002;
 app.listen(PORT, () => {
