@@ -1,4 +1,5 @@
 const express = require('express');
+const metricsRouter = require('./metricsRouter');
 const logger = require('./logger');
 const cors = require('cors');
 
@@ -19,6 +20,9 @@ app.use(express.json());
 
 // Use the Custom CORS Configured actions
 app.use(cors(corsOptions));
+
+// Use the metrics router
+app.use(metricsRouter);
 
 // Log all incoming requests using Loki
 app.use((req, res, next) => {
