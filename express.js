@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const app = express();
 const corsOptions = {
-    origin: 'http://localhost:4000', // Only allow requests from this origin
+    origin: process.env.ORIGIN || 'http://localhost:4000', // Only allow requests from this origin
     // origin: (origin, callback) => {
     //     if (origin && origin.includes(':4000')) {
     //       callback(null, true); // Allow requests from any IP with port 3000
@@ -125,7 +125,7 @@ app.post('/products', async (req, res) => {
   });
 
 // Start the server on port 3002
-const PORT = 3002;
+const PORT = process.env.PORT || 3002; // Use the port from .env or default to 3002
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   logger.info(`Server running on http://localhost:${PORT}`);
